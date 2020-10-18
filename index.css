@@ -1,0 +1,58 @@
+.game {
+    width: 200px;
+    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    border: 1px solid black;
+}
+.game div {
+    height: 18px;
+    width: 18px;
+    border: 1px solid lightgray;
+}
+.panel {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+}
+
+.CloseGame {
+    background-color: red;
+}
+.EndGame {
+    width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+.EndGame div {
+    background-color: black;
+    height: 20px;
+    width: 20px;
+}
+.end div {
+    overflow: hidden;
+}
+
+.Block {
+    width: 200px;
+    height: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+.Block div {
+    height: 20px;
+    width: 20px;
+}
+
+.character {
+    background-color: black;
+}
+.block {
+    background-color: red;
+}
