@@ -2,11 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const squares = document.querySelectorAll("div");
     const Start = document.querySelector(".start");
     const ScoreData = document.querySelector("h3");
+    const Clock = document.querySelector("h2")
+    const Error = document.querySelector("h1")
     let appleIndex = 0;
     let currentPosition = 4;
     let width = 10;
     let score = 0;
+    let Time = 0
     let On = false;
+    let paused = false;
 
     const block = [
         [0, 0, 0, 0],
@@ -18,20 +22,37 @@ document.addEventListener("DOMContentLoaded", () => {
     let blocks = Math.floor(Math.random() * test.length)
     let current = test[blocks][0]
 
+    setInterval(()=>{
+        if(paused === true){
+            Time++;
+            Clock.innerHTML ="time : " + Time;
+        }
+    },1000)
+
     function StartGame() {
-        if (On === false) {
-            On = true;
-            RandomApple()
-            Start.innerHTML = "pause"
-            currentPosition = Math.floor(Math.random() * squares.length - 10);
-            squares[currentPosition].classList.add("character");
-        } else {
-            squares[currentPosition].classList.remove("character");
+        
+        try{
+            if (On === false) {
+                On = true;
+                paused = true;
+                RandomApple()
+                Start.innerHTML = "pause"
+                currentPosition = Math.floor(Math.random() * squares.length - 10);
+                squares[currentPosition].classList.add("character");
+            } else {
             squares[appleIndex].classList.remove("block")
+            current.forEach(index => {
+                squares[currentPosition + index].classList.remove("character")
+            })
             Start.innerHTML = "play"
             On = false
+            paused = false;
+        }
+        }catch(err){
+            Error.innerHTML ="something went wrong please restart game"
         }
     }
+
 
     function ClearGame() {
         squares[appleIndex].classList.remove("block");
@@ -160,7 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
             squares[appleIndex].classList.add("block");
         }
     }
-
     Start.addEventListener("click", StartGame)
     document.addEventListener("keyup", joystick)
 })
