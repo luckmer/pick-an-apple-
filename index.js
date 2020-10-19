@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
     const squares = document.querySelectorAll("div");
     const Start = document.querySelector(".start");
     const ScoreData = document.querySelector("h3");
@@ -9,29 +9,31 @@ document.addEventListener("DOMContentLoaded",()=>{
     let On = false;
 
     const block = [
-        [0,0,0,0],
-        [0,0,0,0],
-        [0,0,0,0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
     ]
 
     const test = [block]
-    let blocks = Math.floor(Math.random()*test.length)
+    let blocks = Math.floor(Math.random() * test.length)
     let current = test[blocks][0]
 
-    function StartGame(){
-        if(On === false){
-        On = true;
-        RandomApple()
-        Start.innerHTML = "pause"
-        squares[currentPosition].classList.add("character");
-        }else{
+    function StartGame() {
+        if (On === false) {
+            On = true;
+            RandomApple()
+            Start.innerHTML = "pause"
+            currentPosition = Math.floor(Math.random() * squares.length - 10);
+            squares[currentPosition].classList.add("character");
+        } else {
+            squares[currentPosition].classList.remove("character");
             squares[appleIndex].classList.remove("block")
             Start.innerHTML = "play"
             On = false
         }
     }
-    
-    function ClearGame(){
+
+    function ClearGame() {
         squares[appleIndex].classList.remove("block");
         current.forEach(index => {
             squares[currentPosition + index].classList.remove("character")
@@ -51,18 +53,18 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
     }
 
-    function downBarrier(){
-        if( 
+    function downBarrier() {
+        if (
             StopPanel(current, squares, currentPosition)
-        ){
+        ) {
             itIsTimeToQuitTheGame(ClearGame);
         }
     }
 
-    function upBarrier(){
-        if( 
+    function upBarrier() {
+        if (
             StopPanel(current, squares, currentPosition)
-        ){
+        ) {
             itIsTimeToQuitTheGame(ClearGame);
         }
     }
@@ -71,10 +73,10 @@ document.addEventListener("DOMContentLoaded",()=>{
         return current.some(index => squares[currentPosition + index].classList.contains('end')) ||
             current.some(index => squares[currentPosition + index].classList.contains('Block'));
     }
-    
 
-    function Score(){
-        if(squares[currentPosition].classList.contains("block")){
+
+    function Score() {
+        if (squares[currentPosition].classList.contains("block")) {
             squares[currentPosition].classList.remove("block")
             RandomApple()
             score++
@@ -86,9 +88,9 @@ document.addEventListener("DOMContentLoaded",()=>{
         alert("game over");
         ClearGame();
     }
-    
-    function moveUp(){
-        if(On === true){
+
+    function moveUp() {
+        if (On === true) {
             deleteCharacter()
             currentPosition -= width;
             createCharacter()
@@ -97,8 +99,8 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
     }
 
-    function moveDown(){
-        if(On  === true){
+    function moveDown() {
+        if (On === true) {
             deleteCharacter()
             currentPosition += width
             createCharacter()
@@ -107,58 +109,59 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
     }
 
-    function moveRight(){
-        if(On === true){
+    function moveRight() {
+        if (On === true) {
             deleteCharacter()
-            currentPosition+=1
+            currentPosition += 1
             createCharacter()
             Score()
         }
-        if(currentPosition % width === 0){
+        if (currentPosition % width === 0) {
             itIsTimeToQuitTheGame(ClearGame);
         }
     }
 
-    function moveLeft(){
-        if(On === true){
+    function moveLeft() {
+        if (On === true) {
             deleteCharacter()
             currentPosition -= 1
             createCharacter()
             Score()
         }
-        if(currentPosition % width === 9){
+        if (currentPosition % width === 9) {
             itIsTimeToQuitTheGame(ClearGame);
         }
     }
 
-    function joystick(e){
-        if(e.keyCode === 87){
+    function joystick(e) {
+        if (e.keyCode === 87) {
             moveUp()
-        }else if (e.keyCode === 83){
+        } else if (e.keyCode === 83) {
             moveDown()
-        }else if(e.keyCode === 68){
+        } else if (e.keyCode === 68) {
             moveRight()
-        }else if(e.keyCode === 65){
+        } else if (e.keyCode === 65) {
             moveLeft()
         }
     }
 
-    function RandomApple(){
-        const EndBlock =current.some(index => {
+    function RandomApple() {
+        const EndBlock = current.some(index => {
             squares[appleIndex + index].classList.contains('end')
-        }) 
+        })
         const StBlock = current.some(index => {
             squares[appleIndex + index].classList.contains('Block')
-        }) 
-        appleIndex = Math.floor(Math.random() * squares.length -10);
-        if(EndBlock || StBlock){
+        })
+        appleIndex = Math.floor(Math.random() * squares.length - 10);
+
+        if (EndBlock || StBlock) {
             squares[appleIndex].classList.remove("block");
-        }else{
+        } else {
             squares[appleIndex].classList.add("block");
         }
     }
 
-    Start.addEventListener("click" ,StartGame)
-    document.addEventListener("keyup" , joystick)
+    Start.addEventListener("click", StartGame)
+    document.addEventListener("keyup", joystick)
 })
 
