@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },1000)
 
     function StartGame() {
-        
         try{
             if (On === false) {
                 On = true;
@@ -49,10 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
             paused = false;
         }
         }catch(err){
-            Error.innerHTML ="something went wrong please restart game"
+            Error.innerHTML ="something went wrong restart after 3s "
+            if(err){
+                setTimeout(()=>{
+                    window.location.reload(true);
+                },3000)
+            }
         }
     }
-
 
     function ClearGame() {
         squares[appleIndex].classList.remove("block");
