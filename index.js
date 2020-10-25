@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
             createCharacter()
             Score()
         }
-        if (currentPosition % width === 0) {
+        if (current[0] % width + 1 === 1 && currentPosition % width + 1 === 1) {
             itIsTimeToQuitTheGame(ClearGame);
         }
     }
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
             createCharacter()
             Score()
         }
-        if (currentPosition % width === 9) {
+        if (current[0] % width+ 1 === 1 && currentPosition % width === 9) {
             itIsTimeToQuitTheGame(ClearGame);
         }
     }
@@ -187,4 +187,3 @@ document.addEventListener("DOMContentLoaded", () => {
     Start.addEventListener("click", StartGame)
     document.addEventListener("keyup", joystick)
 })
-
